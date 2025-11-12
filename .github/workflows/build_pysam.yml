@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout pysam source
-        uses: actions/checkout@v4
-        with:
-          repository: pysam-developers/pysam
-          ref: v0.22.1
+      - name: Clone pysam source manually
+        run: |
+          git clone https://github.com/pysam-developers/pysam.git
+          cd pysam
+          git checkout tags/v0.22.1
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -26,6 +26,7 @@ jobs:
 
       - name: Build Windows wheels
         run: |
+          cd pysam
           CIBW_PLATFORM=windows \
           CIBW_ARCHS=AMD64 \
           CIBW_BUILD="cp310-win_amd64" \
@@ -37,4 +38,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pysam-windows-wheels
-          path: wheelhouse/
+          path: pysam/wheelhouse/
