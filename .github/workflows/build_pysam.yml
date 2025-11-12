@@ -32,6 +32,8 @@ jobs:
           CIBW_BUILD="cp310-win_amd64" \
           CIBW_SKIP="pp*" \
           CIBW_ENVIRONMENT='HTSLIB_CONFIGURE_OPTIONS=--disable-libcurl' \
+          CIBW_BEFORE_ALL="echo skipping install-prerequisites.sh" \
+          CIBW_BEFORE_BUILD="echo skipping make distclean" \
           cibuildwheel --output-dir wheelhouse
 
       - name: Upload built wheels
