@@ -27,13 +27,13 @@ jobs:
       - name: Build Windows wheels
         run: |
           cd pysam
-          set CIBW_PLATFORM=windows
-          set CIBW_ARCHS=AMD64
-          set CIBW_BUILD=cp310-win_amd64
-          set CIBW_SKIP=pp*
-          set CIBW_ENVIRONMENT=HTSLIB_CONFIGURE_OPTIONS=--disable-libcurl
-          set CIBW_BEFORE_ALL=echo skipping install-prerequisites.sh
-          set CIBW_BEFORE_BUILD=echo skipping make distclean
+          $env:CIBW_PLATFORM = "windows"
+          $env:CIBW_ARCHS = "AMD64"
+          $env:CIBW_BUILD = "cp310-win_amd64"
+          $env:CIBW_SKIP = "pp*"
+          $env:CIBW_ENVIRONMENT = "HTSLIB_CONFIGURE_OPTIONS=--disable-libcurl"
+          $env:CIBW_BEFORE_ALL = "echo skipping install-prerequisites.sh"
+          $env:CIBW_BEFORE_BUILD = "echo skipping make distclean"
           cibuildwheel --output-dir wheelhouse
 
       - name: Upload built wheels
@@ -41,3 +41,6 @@ jobs:
         with:
           name: pysam-windows-wheels
           path: pysam/wheelhouse/
+
+
+        
