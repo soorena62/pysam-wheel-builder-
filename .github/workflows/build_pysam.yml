@@ -24,6 +24,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install cibuildwheel==2.16.5
 
+      - name: Install build dependencies
+        run: |
+          cd pysam
+          python -m pip install --upgrade setuptools wheel cython
+
       - name: Build Windows wheels
         run: |
           cd pysam
@@ -41,6 +46,3 @@ jobs:
         with:
           name: pysam-windows-wheels
           path: pysam/wheelhouse/
-
-
-        
